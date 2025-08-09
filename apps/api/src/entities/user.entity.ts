@@ -1,19 +1,18 @@
-import { Column, Entity, BaseEntity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Task } from './task.entity';
+import { Column, Entity } from 'typeorm';
+import { BaseEntity } from './base.entity'
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string
-
     @Column({ type: 'varchar', length: 50 })
     email: string;
+    
+    @Column({ type: 'varchar' })
+    userName: string
 
     @Column({ type: 'varchar' })
-    first_name: string
+    password: string
 
-    @OneToMany(() => Task, task => task.user)
-    tasks: Task[]
-    
+    // @OneToMany(() => Task, task => task.user)
+    // tasks: Task[]
 }
