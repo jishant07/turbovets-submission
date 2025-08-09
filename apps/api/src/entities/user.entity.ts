@@ -2,7 +2,7 @@ import { Column, Entity, BaseEntity, PrimaryGeneratedColumn, OneToMany } from 't
 import { Task } from './task.entity';
 
 @Entity({ name: 'users' })
-export class User extends BaseEntity{
+export class User extends BaseEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: string

@@ -46,21 +46,21 @@
     "migration:generate": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx typeorm-ts-node-esm migration:generate -d ./src/typeorm.config.ts ./src/migrations/{args.name}",
+        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli.js migration:generate -d src/typeorm.config.ts src/migrations/{args.name}",
         "cwd": "apps/api"
       }
     },
     "migration:run": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx typeorm-ts-node-commonjs migration:run -d ./src/typeorm.config.ts",
+        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli.js migration:run -d src/typeorm.config.ts",
         "cwd": "apps/api"
       }
     },
     "migration:revert": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx typeorm-ts-node-commonjs migration:revert -d ./src/typeorm.config.ts",
+        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli.js migration:revert -d src/typeorm.config.ts",
         "cwd": "apps/api"
       }
     }

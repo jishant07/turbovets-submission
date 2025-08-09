@@ -1,10 +1,4 @@
 import { DataSource } from 'typeorm';
-import { join } from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -15,12 +9,8 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASS || 'ABCD@123',
   database: process.env.DB_NAME || 'turbovets',
-  entities: [
-    join(__dirname, 'entities', '*.entity.{ts,js}')
-  ],
-  migrations: [
-    `src/migrations/**/*.${isProd ? 'js' : 'ts'}`
-  ],
+  entities: ['src/entities/**/*.entity.{ts,js}'],
+  migrations: ['src/migrations/**/*.{ts,js}'],
   synchronize: false,
   logging: !isProd,
 });
