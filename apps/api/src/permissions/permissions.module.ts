@@ -1,6 +1,5 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { PermissionsService } from './permissions.service';
-import { PermissionsController } from './permissions.controller';
 import { PermissionRepository } from './permissions.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Permissions } from '@turbovets/data';
@@ -15,7 +14,6 @@ import { UsersModule } from '../users/users.module';
     JunctionModule, 
     UsersModule
   ],
-  controllers: [PermissionsController],
   providers: [PermissionsService, PermissionRepository],
   exports: [PermissionRepository, PermissionsService]
 })
