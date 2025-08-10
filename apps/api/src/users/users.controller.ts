@@ -19,6 +19,11 @@ import { AuthGuard } from '@turbovets/auth';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Post('/login')
+  login(@Req() req: Request, @Res() res : Response, @Body() body: LoginDTO){
+    return this.usersService.login(req, res, body)
+  }
+
   @Post()
   @UseGuards(AuthGuard)
   create(@Res() res: Response, @Body() createUserDto: CreateUserDto) {
@@ -32,22 +37,20 @@ export class UsersController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard)
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard)
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
-  }
-
-  @Post('/login')
-  login(@Req() req: Request, @Res() res : Response, @Body() body: LoginDTO){
-    return this.usersService.login(req, res, body)
   }
 }

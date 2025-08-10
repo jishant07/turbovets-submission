@@ -1,6 +1,6 @@
-import { HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { HttpStatus, Injectable, InternalServerErrorException, OnModuleInit } from '@nestjs/common';
 import { Request, Response } from 'express'
-import { CreateUserDto, LoginDTO } from '@turbovets/data';
+import { CreateUserDto, LoginDTO, User } from '@turbovets/data';
 import { UpdateUserDto } from '@turbovets/data';
 import { UserRepository } from './user.repository';
 import * as bcrypt from 'bcrypt'
@@ -8,12 +8,16 @@ import { respond_failure, respond_ok } from '../utils/response.utils';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
-export class UsersService {
+export class UsersService implements OnModuleInit{
 
   constructor(
     private readonly userRepository: UserRepository,
     private readonly jwtService: JwtService
   ){}
+
+  onModuleInit() {
+    throw new Error('Method not implemented.');
+  }
 
   async create(res: Response, createUserDto: CreateUserDto) {
     if(await this.userRepository.findUserByEmail(createUserDto.email, false)){
