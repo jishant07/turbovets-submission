@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity'
 import { User } from './user.entity';
 
@@ -8,6 +8,7 @@ export class Task extends BaseEntity {
     @Column({ type: 'varchar', length: 50 })
     name: string;
 
-    @OneToMany(() => User, user => user.tasks)
+    @ManyToOne(() => User, user => user.tasks)
+    @JoinColumn({ name: "user_id" })
     user: User
 }

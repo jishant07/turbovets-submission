@@ -1,8 +1,9 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit, forwardRef } from '@nestjs/common';
 import { PermissionRepository } from './permissions.repository';
 import { RolesService } from '../roles/roles.service';
 import { Actions, CreatePermissionDto, Resources, UserRoles } from '@turbovets/data';
 import { JunctionService } from '../junction/junction.service';
+import { UsersService } from '../users/users.service';
 
 const permissionObject = {
   [UserRoles.ADMIN]: [Actions.READ, Actions.UPDATE],
@@ -13,8 +14,10 @@ const permissionObject = {
 @Injectable()
 export class PermissionsService implements OnModuleInit {
   constructor(
+    @Inject(forwardRef(() => RolesService))
     private readonly roleService: RolesService,
     private readonly junctionService: JunctionService,
+    private readonly userService: UsersService,
     private readonly permissionRepository: PermissionRepository
   ) {}
 
@@ -32,12 +35,13 @@ export class PermissionsService implements OnModuleInit {
   }
 
   returnAllPermissions() {
-    const resourceArray = [Resources.TASKS, Resources.USERS];
+    const resourceArray = [Resources.TASKS, Resources.USERS, Resources.ORGANISATIONS];
     const allPermissions = [
       Actions.CREATE,
       Actions.READ,
       Actions.UPDATE,
       Actions.DELETE,
+      Actions.ALL
     ];
 
     const returnArray = [];
@@ -71,7 +75,7 @@ export class PermissionsService implements OnModuleInit {
     for(const userRole of userRoleList){
       const roleInfo = await this.roleService.createRole(userRole)
       const userRolePermissions = permissionObject[userRole]
-      const resourceArray = [Resources.TASKS, Resources.USERS]
+      const resourceArray = [Resources.TASKS, Resources.USERS, Resources.ORGANISATIONS]
 
       const commitArray = []
 
@@ -84,9 +88,21 @@ export class PermissionsService implements OnModuleInit {
 
       try{
         await Promise.all(commitArray)
+
+        // Creating Super Admin
+        const superAdminUser = await this.userService.createSuperAdmin()
+        const superAdminRole = await this.roleService.createRole(UserRoles.SUPERADMIN)
+        const superAdminRolesPermission = await this.permissionRepository.createPermission({action: Actions.ALL, resource: Resources.ALL})
+        await this.junctionService.create({roleId : superAdminRole.id, permissionId: superAdminRolesPermission.id})
+        await this.userService.update(superAdminUser.id, {...superAdminUser, role: superAdminRole})
+
       }catch(err){
         console.log("ROLES PERMISSION SEED FAILED", err)
       }
     }
+  }
+
+  async getAllPermissionsFromRole(roleId : string){
+    return this.permissionRepository.findPermissionsFromRoleId(roleId)
   }
 }

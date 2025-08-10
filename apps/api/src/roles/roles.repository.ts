@@ -8,16 +8,20 @@ export class RoleRepository{
 
     constructor(
         @InjectRepository(Roles)
-        private readonly userRepository: Repository<Roles>
+        private readonly roleRepository: Repository<Roles>
     ){}
 
     createRole(roleName: UserRoles){
-        const role = this.userRepository.create({name: roleName});
-        return this.userRepository.save(role)
+        const role = this.roleRepository.create({name: roleName});
+        return this.roleRepository.save(role)
     }
 
     findAllRoles(){
-        return this.userRepository.find()
+        return this.roleRepository.find()
+    }
+
+    findRoleByName(roleName: UserRoles){
+        return this.roleRepository.findOne({where: {name: roleName}})
     }
 
 }

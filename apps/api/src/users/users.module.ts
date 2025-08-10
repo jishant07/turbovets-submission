@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 // import { Permissions } from '../entities/permissions.entity';
 import { UserRepository } from './user.repository';
 import { User, Organisation, Roles, Task, RolePermissions, Permissions } from '@turbovets/data';
+import { JunctionModule } from '../junction/junction.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([
@@ -19,9 +20,9 @@ import { User, Organisation, Roles, Task, RolePermissions, Permissions } from '@
     Task, 
     RolePermissions, 
     Permissions
-  ])],
+  ]), JunctionModule],
   controllers: [UsersController],
   providers: [UsersService, UserRepository],
-  exports: [UserRepository],
+  exports: [UserRepository, UsersService],
 })
 export class UsersModule {}

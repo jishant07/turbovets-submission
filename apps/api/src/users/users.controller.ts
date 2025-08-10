@@ -38,8 +38,8 @@ export class UsersController {
 
   @Get(':id')
   @UseGuards(AuthGuard)
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
+  findOne(@Req() req : Request, @Param('id') id: string) {
+    return this.usersService.findOne(req, id);
   }
 
   @Patch(':id')

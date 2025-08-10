@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator'
+import { Organisation, Roles } from '../entities'
 
 export class CreateUserDto {
 
@@ -15,7 +16,15 @@ export class CreateUserDto {
     name: string
 }
 
-export class UpdateUserDto extends CreateUserDto{}
+export class UpdateUserDto extends CreateUserDto{
+
+    @IsOptional()
+    role?: Roles
+
+    @IsOptional()
+    organisation?: Organisation
+
+}
 
 export class LoginDTO {
 

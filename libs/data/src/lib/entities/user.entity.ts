@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Organisation } from './organisations.entity';
 import { Roles } from './roles.entity';
@@ -32,6 +32,6 @@ export class User extends BaseEntity {
     @JoinColumn({ name: 'role_id' })
     role: Roles;
 
-    @ManyToOne(() => Task, task => task.user)
+    @OneToMany(() => Task, task => task.user)
     tasks: Task[]
 }

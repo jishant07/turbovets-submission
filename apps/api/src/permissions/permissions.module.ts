@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { PermissionsService } from './permissions.service';
 import { PermissionsController } from './permissions.controller';
 import { PermissionRepository } from './permissions.repository';
@@ -6,11 +6,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Permissions } from '@turbovets/data';
 import { RolesModule } from '../roles/roles.module';
 import { JunctionModule } from '../junction/junction.module';
+import { UsersModule } from '../users/users.module';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Permissions]), RolesModule, JunctionModule],
+  imports:[
+    TypeOrmModule.forFeature([Permissions]), 
+    forwardRef(() => RolesModule),
+    JunctionModule, 
+    UsersModule
+  ],
   controllers: [PermissionsController],
   providers: [PermissionsService, PermissionRepository],
-  exports: [PermissionRepository]
+  exports: [PermissionRepository, PermissionsService]
 })
 export class PermissionsModule {}

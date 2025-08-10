@@ -18,4 +18,14 @@ export class RolePermissionsRepository {
         return this.rolePermissionRepository.save(rolePermissionEntry)
     }
 
+    async getPermissionsFromRoleId(roleId: string){
+      const rolePermissions = await this.rolePermissionRepository.find({where: {roleId}})
+      return rolePermissions.map((item: RolePermissions) =>{
+        return {
+          action: item.permission.action,
+          resource: item.permission.resource
+        }
+      })
+    }
+
 }

@@ -14,20 +14,40 @@ export class PermissionRepository {
   ) {}
 
   async createPermission(createPermissionDto: CreatePermissionDto) {
-    const checkPermissionExists = await this.permissionRepository.findOne({where: {resource: createPermissionDto.resource, action: createPermissionDto.action}})
-    if(!checkPermissionExists){
-        const permission = await this.permissionRepository.create(
-          createPermissionDto
-        );
-        return await this.permissionRepository.save(permission);
+    const checkPermissionExists = await this.permissionRepository.findOne({
+      where: {
+        resource: createPermissionDto.resource,
+        action: createPermissionDto.action,
+      },
+    });
+    if (!checkPermissionExists) {
+      const permission = await this.permissionRepository.create(
+        createPermissionDto
+      );
+      return await this.permissionRepository.save(permission);
     }
+    return checkPermissionExists;
   }
 
   findAllPermissions() {
     return this.permissionRepository.find();
   }
 
-  getPermissionFromResourceAndAction(queryObject: CreatePermissionDto){
-    return this.permissionRepository.findOne({where: {action: queryObject.action, resource: queryObject.resource}})
+  async getPermissionFromResourceAndAction(queryObject: CreatePermissionDto) {
+    return await this.permissionRepository.findOne({
+      where: { action: queryObject.action, resource: queryObject.resource },
+    });
+  }
+
+  async findPermissionsFromRoleId(roleId: string) {
+    const result = await this.permissionRepository.find({
+      where: {
+        rolePermissions: {
+          roleId,
+        },
+      },
+    });
+    console.log(result)
+    return result
   }
 }

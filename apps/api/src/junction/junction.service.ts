@@ -12,4 +12,9 @@ export class JunctionService {
   create(createJunctionDto: CreateRolePermissionDto) {
     return this.rolesPermissionRepository.createRolePermissionEntry(createJunctionDto)  
   }
+
+  async getPermissionsFromRoleId(roleId: string){
+    const permissions = await this.rolesPermissionRepository.getPermissionsFromRoleId(roleId)
+    return permissions
+  }
 }

@@ -1,11 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { UserRoles } from '@turbovets/data';
 import { RoleRepository } from './roles.repository';
+import { PermissionsService } from '../permissions/permissions.service';
 
 @Injectable()
 export class RolesService {
 
   constructor(
+    @Inject(forwardRef(() => PermissionsService))
+    private readonly permissionsService: PermissionsService,
     private readonly roleRepository: RoleRepository
   ){}
 
@@ -14,6 +17,14 @@ export class RolesService {
   }
 
   async createRole(roleName: UserRoles){
-    return this.roleRepository.createRole(roleName)
+    const checkRoleExists = await this.roleRepository.findRoleByName(roleName)
+    if(!checkRoleExists){
+      return this.roleRepository.createRole(roleName)
+    }
+    return checkRoleExists
+  }
+
+  async getPermissionFromRole(roleId : string){
+    return this.permissionsService.getAllPermissionsFromRole(roleId)
   }
 }

@@ -1,11 +1,7 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AppService implements OnModuleInit{
-  
-  onModuleInit() {
-    console.log("APP MODULE INIT")
-  }
+export class AppService{
 
   getData(): { message: string } {
     return { message: 'Hello API' };
