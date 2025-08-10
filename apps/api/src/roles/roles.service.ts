@@ -1,24 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import { UserRoles } from '@turbovets/data';
+import { RoleRepository } from './roles.repository';
 
 @Injectable()
 export class RolesService {
-  create(createRoleDto: unknown) {
-    return 'This action adds a new role';
+
+  constructor(
+    private readonly roleRepository: RoleRepository
+  ){}
+
+  async findAllRoles(){
+    return this.roleRepository.findAllRoles()
   }
 
-  findAll() {
-    return `This action returns all roles`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} role`;
-  }
-
-  update(id: number, updateRoleDto: unknown) {
-    return `This action updates a #${id} role`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} role`;
+  async createRole(roleName: UserRoles){
+    return this.roleRepository.createRole(roleName)
   }
 }

@@ -9,7 +9,7 @@ export class Roles extends BaseEntity{
     @Column({ type:'enum', enum: UserRoles, nullable: false})
     name: UserRoles
 
-    @OneToMany(() => RolePermissions, (rolePermission) => rolePermission.role)
+    @OneToMany(() => RolePermissions, (rolePermission) => rolePermission.role, {nullable : true})
     rolePermissions: RolePermissions[];
 
 }

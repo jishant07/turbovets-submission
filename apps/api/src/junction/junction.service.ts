@@ -1,24 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { CreateRolePermissionDto } from '@turbovets/data';
+import { RolePermissionsRepository } from './junction.repository';
 
 @Injectable()
 export class JunctionService {
-  create(createJunctionDto: unknown) {
-    return 'This action adds a new junction';
-  }
 
-  findAll() {
-    return `This action returns all junction`;
-  }
+  constructor(
+    private readonly rolesPermissionRepository : RolePermissionsRepository
+  ){}
 
-  findOne(id: number) {
-    return `This action returns a #${id} junction`;
-  }
-
-  update(id: number, updateJunctionDto: unknown) {
-    return `This action updates a #${id} junction`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} junction`;
+  create(createJunctionDto: CreateRolePermissionDto) {
+    return this.rolesPermissionRepository.createRolePermissionEntry(createJunctionDto)  
   }
 }
