@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTaskDto } from '@turbovets/data';
-import { UpdateTaskDto } from '@turbovets/data';
 
 @Injectable()
 export class TasksService {
@@ -16,7 +15,7 @@ export class TasksService {
     return `This action returns a #${id} task`;
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
+  update(id: number, updateTaskDto: unknown) {
     return `This action updates a #${id} task`;
   }
 

@@ -46,22 +46,19 @@
     "migration:generate": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli.js migration:generate -d src/typeorm.config.ts src/migrations/{args.name}",
-        "cwd": "apps/api"
+        "command": "ts-node --project apps/api/tsconfig.app.json -r tsconfig-paths/register node_modules/typeorm/cli.js migration:generate -d apps/api/src/typeorm.config.ts libs/data/src/lib/migrations/{args.name}"
       }
     },
     "migration:run": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli.js migration:run -d src/typeorm.config.ts",
-        "cwd": "apps/api"
+        "command": "ts-node --project apps/api/tsconfig.app.json -r tsconfig-paths/register node_modules/typeorm/cli.js migration:run -d apps/api/src/typeorm.config.ts"
       }
     },
     "migration:revert": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli.js migration:revert -d src/typeorm.config.ts",
-        "cwd": "apps/api"
+        "command": "ts-node --project apps/api/tsconfig.app.json -r tsconfig-paths/register node_modules/typeorm/cli.js migration:revert -d apps/api/src/typeorm.config.ts"
       }
     }
   }

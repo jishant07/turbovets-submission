@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany } from "typeorm";
 import { BaseEntity } from "./base.entity";
-import { UserRoles } from "@turbovets/data";
+import { UserRoles } from "../interfaces/user.interface";
 import { RolePermissions } from "./junction.entity";
 
 @Entity({ name: "roles" })

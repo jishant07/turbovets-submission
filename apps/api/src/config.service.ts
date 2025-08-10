@@ -36,10 +36,10 @@ class ConfigService {
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
 
-      entities: ['src/entities/**/*.entity.{ts,js}'],
+      entities: [__dirname + 'libs/data/src/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
       migrationsTableName: 'migration',
-      migrations: ['src/migrations/**/*.{ts,js}'],
+      migrations: ['libs/data/src/migrations/**/*.{ts,js}'],
       ssl: this.isProduction(),
       synchronize: false,
     };
