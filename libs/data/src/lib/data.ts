@@ -1,8 +1,7 @@
-import { CreateTaskDto } from "./create-task.dto";
-import { UpdateTaskDto } from "./update-task.dto";
+export * from './dto';
+export * from './interfaces';
 
-export { CreateTaskDto, UpdateTaskDto };
-
+// If you need any specific functions or constants
 export const data = () => {
     return 'data'
 }

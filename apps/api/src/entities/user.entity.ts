@@ -1,5 +1,7 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity'
+import { Organisation } from './organisations.entity';
+import { Roles } from './roles.entity';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -13,6 +15,18 @@ export class User extends BaseEntity {
     @Column({ type: 'varchar' })
     password: string
 
-    // @OneToMany(() => Task, task => task.user)
-    // tasks: Task[]
+    @ManyToOne(() => Organisation, {
+        eager: true, 
+        onDelete: 'CASCADE'
+    })
+    @JoinColumn({ name: 'organisation_id' })
+    organisation: Organisation
+
+    @ManyToOne(() => Roles, {
+        eager: true, 
+        onDelete: 'SET NULL',
+        nullable: true
+    })
+    @JoinColumn({ name: 'role_id' })
+    role : Roles
 }
