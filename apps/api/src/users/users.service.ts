@@ -64,6 +64,10 @@ export class UsersService{
     return this.userRepository.removeUser(id);
   }
 
+  findOneById(id: string){
+    return this.userRepository.findById(id)
+  }
+
   async login(req: Request, res: Response, body: LoginDTO){
     const user = await this.userRepository.findUserByEmail(body.email, true)
     

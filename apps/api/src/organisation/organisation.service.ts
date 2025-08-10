@@ -1,24 +1,47 @@
 import { Injectable } from '@nestjs/common';
+import { OrganisationRepository } from './organisation.repository';
+import { CreateOrganisationDto, UpdateOrganisationDto } from '@turbovets/data';
 
 @Injectable()
 export class OrganisationService {
-  create(createOrganisationDto: unknown) {
-    return 'This action adds a new organisation';
+
+  constructor(
+    private readonly organisationRepository: OrganisationRepository
+  ){}
+
+  create(createOrganisationDto: CreateOrganisationDto) {
+    return this.organisationRepository.createTask(createOrganisationDto);
   }
 
   findAll() {
-    return `This action returns all organisation`;
+    return this.organisationRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} organisation`;
+  findOne(id: string) {
+    return this.organisationRepository.findOne(id);
   }
 
-  update(id: number, updateOrganisationDto: unknown) {
-    return `This action updates a #${id} organisation`;
+  async update(id: string, updateOrganisationDto: UpdateOrganisationDto) {
+    if(updateOrganisationDto.parentId){
+      const parentOrg = await this.findOne(updateOrganisationDto.parentId)
+      delete updateOrganisationDto.parentId
+      updateOrganisationDto.parent = parentOrg
+    }
+    const { affected } = await this.organisationRepository.update(id, {...updateOrganisationDto});
+    if(affected){
+      return {
+        success: true,
+        message: "Updated the organisation successfully"
+      }
+    }else{
+      return {
+        success: false,
+        message: "Organisation Update Failed"
+      }
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} organisation`;
+  remove(id: string) {
+    return this.organisationRepository.remove(id);
   }
 }

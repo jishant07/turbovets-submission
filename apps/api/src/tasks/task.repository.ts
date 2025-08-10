@@ -32,5 +32,12 @@ export class TaskRepository{
         return this.taskRepository.remove(await this.findOne(id))
     }
 
+    async findAllTaskOfAUser(userId: string){
+        return this.taskRepository.find({where : {
+            user: {
+                id: userId
+            }
+        }})
+    }
 
 }

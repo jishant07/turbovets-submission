@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CreateTaskDto, Organisation, UpdateTaskDto } from "@turbovets/data";
+import { CreateOrganisationDto, Organisation, UpdateOrganisationDto } from "@turbovets/data";
 import { Repository } from "typeorm";
 
 @Injectable()
@@ -11,7 +11,7 @@ export class OrganisationRepository{
         private readonly organisationRepository: Repository<Organisation>
     ){}
 
-    async createTask(createTaskDto : CreateTaskDto){
+    async createTask(createTaskDto : CreateOrganisationDto){
         const task = await this.organisationRepository.create(createTaskDto)
         return this.organisationRepository.save(task)
     }
@@ -24,7 +24,7 @@ export class OrganisationRepository{
         return this.organisationRepository.findOne({where: {id}})
     }
 
-    async update(id : string, updateTaskDto: UpdateTaskDto){
+    async update(id : string, updateTaskDto: UpdateOrganisationDto){
         return this.organisationRepository.update(id, {...updateTaskDto})
     }
 

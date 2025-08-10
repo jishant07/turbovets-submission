@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto, UpdateTaskDto } from '@turbovets/data';
+import { AuthGuard } from '@turbovets/auth';
 
 @Controller('tasks')
+@UseGuards(AuthGuard)
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
@@ -14,6 +16,11 @@ export class TasksController {
   @Get()
   findAll() {
     return this.tasksService.findAll();
+  }
+
+  @Get('/userTasks/:id')
+  findTasksByUserId(@Param('id') userId: string){
+    return this.tasksService.findAllTaskOfAUser(userId)
   }
 
   @Get(':id')

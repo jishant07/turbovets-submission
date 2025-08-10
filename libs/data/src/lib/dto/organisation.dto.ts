@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { Organisation } from "../entities/organisations.entity";
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
+import { Organisation } from "../entities";
 
 export class CreateOrganisationDto{
 
@@ -12,6 +12,10 @@ export class CreateOrganisationDto{
 export class UpdateOrganisationDto extends CreateOrganisationDto{
 
     @IsOptional()
-    parent : Organisation
+    @IsUUID()
+    parentId?: string
+
+    @IsOptional()
+    parent: Organisation
 
 }

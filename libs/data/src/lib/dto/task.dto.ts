@@ -1,5 +1,6 @@
-import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
 import { TaskStatus } from "../interfaces";
+import { User } from "../entities";
 
 export class CreateTaskDto {
 
@@ -15,6 +16,12 @@ export class CreateTaskDto {
     @IsOptional()
     tastStatus: TaskStatus
 
+    @IsOptional()
+    @IsUUID()
+    userId?: string
+
+    @IsOptional()
+    user?: User
 }
 
 export class UpdateTaskDto extends CreateTaskDto{}
