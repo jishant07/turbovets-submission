@@ -24,11 +24,11 @@ export class TasksController {
   }
 
   // Scope To Org Left
-  @Get('/userTasks')
+  @Get('/userTasks/:id')
   @UseGuards(PermissionCheckGuard)
   @SetMetadata('permissions', [`${Resources.TASKS}:${Actions.READ}`])
-  findTasksByUserId(@Req() req: RequestWithCurrentUser, @Res() res: Response){
-    return this.tasksService.findAllTaskOfAUser(req, res)
+  findTasksByUserId(@Req() req: RequestWithCurrentUser, @Res() res: Response, @Param('id') id : string){
+    return this.tasksService.findAllTaskOfAUser(req, res, id)
   }
 
   //Scope To Org Left

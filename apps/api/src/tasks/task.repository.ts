@@ -40,9 +40,9 @@ export class TaskRepository{
         return this.taskRepository.remove(await this.findOne(id))
     }
 
-    async findAllTaskOfAUser(req : RequestWithCurrentUser, res : Response){
+    async findAllTaskOfAUser(req : RequestWithCurrentUser, res : Response, userId: string){
 
-        const { userId, organisationId } = req.currentUser || {}
+        const { organisationId } = req.currentUser || {}
         const taskList = await this.taskRepository.find({where : {
             user: {
                 id: userId
