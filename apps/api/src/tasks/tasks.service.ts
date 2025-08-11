@@ -40,8 +40,8 @@ export class TasksService {
     return this.taskRepository.findOne(id);
   }
 
-  findAllTaskOfAUser(userId: string){
-    return this.taskRepository.findAllTaskOfAUser(userId)
+  findAllTaskOfAUser(req : RequestWithCurrentUser, res: Response){
+    return this.taskRepository.findAllTaskOfAUser(req, res)
   }
 
   async update(req : RequestWithCurrentUser, res: Response, id: string, updateTaskDto: UpdateTaskDto) {

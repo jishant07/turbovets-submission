@@ -40,12 +40,22 @@ export class TaskRepository{
         return this.taskRepository.remove(await this.findOne(id))
     }
 
-    async findAllTaskOfAUser(userId: string){
-        return this.taskRepository.find({where : {
+    async findAllTaskOfAUser(req : RequestWithCurrentUser, res : Response){
+
+        const { userId, organisationId } = req.currentUser || {}
+        const taskList = await this.taskRepository.find({where : {
             user: {
                 id: userId
+            },
+            organisation:{
+                id: organisationId
             }
         }})
+        if(taskList.length){
+            return respond_ok(res, {tasks: taskList})
+        }else{
+            return respond_failure(res, {message : "No Tasks Found"})
+        }
     }
 
 }
