@@ -1,0 +1,132 @@
+<!--
+  This example requires updating your template:
+
+  ```
+  <html class="h-full bg-white">
+  <body class="h-full">
+  ```
+-->
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" class="mx-auto h-10 w-auto" />
+    <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <form action="#" method="POST" class="space-y-6">
+      <div>
+        <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
+        <div class="mt-2">
+          <input id="email" type="email" name="email" required autocomplete="email" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between">
+          <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
+        </div>
+        <div class="mt-2">
+          <input id="password" type="password" name="password" required autocomplete="current-password" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+      </div>
+    </form>
+  </div>
+
+<!-- Outer container to center horizontally and allow horizontal scroll -->
+<div class="w-full flex justify-center overflow-x-auto py-6 bg-gray-50 min-h-screen">
+  <!-- Inner container with spacing for columns -->
+  <div class="flex space-x-4 min-w-max px-4">
+    <!-- Column 1 -->
+    <div class="bg-gray-100 rounded-lg shadow-md p-4 w-64">
+      <h3 class="font-semibold text-lg mb-4">To Do</h3>
+      <div class="bg-white p-3 rounded shadow mb-3">
+        <h4 class="font-medium text-md">Task 1</h4>
+        <p class="text-sm text-gray-600">Description of task 1</p>
+      </div>
+    </div>
+
+    <!-- Column 2 -->
+    <div class="bg-gray-100 rounded-lg shadow-md p-4 w-64">
+      <h3 class="font-semibold text-lg mb-4">In Progress</h3>
+      <div class="bg-white p-3 rounded shadow mb-3">
+        <h4 class="font-medium text-md">Task 2</h4>
+        <p class="text-sm text-gray-600">Description of task 2</p>
+      </div>
+    </div>
+
+    <!-- Column 3 -->
+    <div class="bg-gray-100 rounded-lg shadow-md p-4 w-64">
+      <h3 class="font-semibold text-lg mb-4">Review</h3>
+      <div class="bg-white p-3 rounded shadow mb-3">
+        <h4 class="font-medium text-md">Task 3</h4>
+        <p class="text-sm text-gray-600">Description of task 3</p>
+      </div>
+    </div>
+
+    <!-- Column 4 -->
+    <div class="bg-gray-100 rounded-lg shadow-md p-4 w-64">
+      <h3 class="font-semibold text-lg mb-4">Done</h3>
+      <div class="bg-white p-3 rounded shadow mb-3">
+        <h4 class="font-medium text-md">Task 4</h4>
+        <p class="text-sm text-gray-600">Description of task 4</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-bold">Task List</h2>
+    <!-- Create button at top -->
+    <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow">
+      Create Task
+    </button>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
+      <thead class="bg-gray-100 border-b border-gray-200">
+        <tr>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">ID</th>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Title</th>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Status</th>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Due Date</th>
+          <th class="px-4 py-2 text-right text-sm font-semibold text-gray-600">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Row 1 -->
+        <tr class="border-b hover:bg-gray-50">
+          <td class="px-4 py-2 text-sm text-gray-700">1</td>
+          <td class="px-4 py-2 text-sm text-gray-700">Task One</td>
+          <td class="px-4 py-2 text-sm text-yellow-600">In Progress</td>
+          <td class="px-4 py-2 text-sm text-gray-500">2025-08-15</td>
+          <td class="px-4 py-2 text-sm text-right space-x-2">
+            <button class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded">Update</button>
+            <button class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">Delete</button>
+          </td>
+        </tr>
+
+        <!-- Row 2 -->
+        <tr class="border-b hover:bg-gray-50">
+          <td class="px-4 py-2 text-sm text-gray-700">2</td>
+          <td class="px-4 py-2 text-sm text-gray-700">Task Two</td>
+          <td class="px-4 py-2 text-sm text-green-600">Done</td>
+          <td class="px-4 py-2 text-sm text-gray-500">2025-08-10</td>
+          <td class="px-4 py-2 text-sm text-right space-x-2">
+            <button class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded">Update</button>
+            <button class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+</div>

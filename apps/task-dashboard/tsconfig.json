@@ -27,9 +27,6 @@
     },
     {
       "path": "./tsconfig.spec.json"
-    },
-    {
-      "path": "apps/dashboard/tsconfig.server.json"
     }
   ]
 }

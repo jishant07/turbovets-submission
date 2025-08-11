@@ -1,8 +1,8 @@
 export default {
-  displayName: 'dashboard',
+  displayName: 'task-dashboard',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/apps/dashboard',
+  coverageDirectory: '../../coverage/apps/task-dashboard',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
