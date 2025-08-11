@@ -28,8 +28,25 @@ export class TaskRepository{
         }
     }
 
-    async findOne(id: string){
-        return this.taskRepository.findOne({where: {id}})
+    async findOne(req : RequestWithCurrentUser, res : Response, id: string){
+        const { organisationId } = req?.currentUser || {} 
+        try{
+            const task = await this.taskRepository.findOne(
+                {
+                    where: {
+                        id,
+                        organisation:{
+                            id: organisationId
+                        }
+                    }
+                }
+            )
+
+            return respond_ok(res, {task})
+
+        }catch(err){
+            return respond_failure(res, {message: err})
+        }
     }
 
     async update(id : string, updateTaskDto: UpdateTaskDto){
@@ -37,7 +54,7 @@ export class TaskRepository{
     }
 
     async remove(id: string){
-        return this.taskRepository.remove(await this.findOne(id))
+        return this.taskRepository.remove(await this.taskRepository.findOne({where : {id}}))
     }
 
     async findAllTaskOfAUser(req : RequestWithCurrentUser, res : Response, userId: string){

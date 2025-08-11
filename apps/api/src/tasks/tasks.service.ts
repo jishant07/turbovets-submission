@@ -36,8 +36,8 @@ export class TasksService {
     return this.taskRepository.findAll(req, res)
   }
 
-  findOne(id: string) {
-    return this.taskRepository.findOne(id);
+  findOne(req : RequestWithCurrentUser, res : Response, id: string) {
+    return this.taskRepository.findOne(req , res, id);
   }
 
   findAllTaskOfAUser(req : RequestWithCurrentUser, res: Response, id: string){

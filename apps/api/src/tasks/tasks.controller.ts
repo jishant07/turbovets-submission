@@ -23,7 +23,6 @@ export class TasksController {
     return this.tasksService.findAll(req, res);
   }
 
-  // Scope To Org Left
   @Get('/userTasks/:id')
   @UseGuards(PermissionCheckGuard)
   @SetMetadata('permissions', [`${Resources.TASKS}:${Actions.READ}`])
@@ -36,7 +35,7 @@ export class TasksController {
   @UseGuards(PermissionCheckGuard)
   @SetMetadata('permissions', [`${Resources.TASKS}:${Actions.READ}`])
   findOne(@Req() req: RequestWithCurrentUser, @Res() res: Response, @Param('id') id: string) {
-    return this.tasksService.findOne(id);
+    return this.tasksService.findOne(req, res, id);
   }
 
   @Put(':id')
