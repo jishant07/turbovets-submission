@@ -1,0 +1,19 @@
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+<div class="text-center">
+    <!-- Red Cross Icon -->
+    <div class="mx-auto mb-6 w-24 h-24 text-red-600">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-full h-full">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </div>
+
+    <!-- Forbidden Text -->
+    <h1 class="text-4xl font-bold text-gray-800 mb-2">403 Forbidden</h1>
+    <p class="text-gray-600 text-lg">You don't have permission to access this page.</p>
+    <p>You will be automatically navigated to a page you have access to by clicking 
+      <button (click)="handleRedirect()" (keyup)="handleRedirect()" class="text-blue-800 underline bg-transparent border-none p-0 cursor-pointer" style="font: inherit;">
+        here.
+      </button>
+    </p>
+  </div>
