@@ -9,13 +9,14 @@
 - Run Commane `npm install --legacy-peer-deps` , this will install all the necessary dependencies
 - You can run postgres in a docker container, steps can be found [here](https://hub.docker.com/_/postgres).
 - Once you have postgres up and running, create a database named `turbovets`
+- Change the `.env.example` file to `.env.development` and populate the corresponding things required
 - After that run the command, `nx run api:migration:run` to create all the necessary tables to run the code
 - Now you can serve the apps
   - `nx serve api --configuration=development`
   - `nx serve task-dashboard`
 - You can access the API Docs (Swagger Documentation) `http://localhost:3000/api-docs/`
 - You can access the Backend on `localhost:3000`
-- You can access the Frontend on `localhost:4200`
+- You can access the Frontend on `localhost:4200`, where you can login as a SuperAdmin and then create users as required.
 
 
 ## Rough ER Diagram
@@ -24,7 +25,8 @@
 
 ### Scope of Improvement
 
-- Logging
+- Better Logging in the backend
+- Adddition of secrets in cloud secrets manager, and loading secrets from file in the frontend
 - Implementation of Frontend beyond User Screen (Was needed to implement creation of task and ownership)
 - Adding test cases
 - Better UI in frontend
