@@ -29,7 +29,8 @@ export class TaskRepository{
     }
 
     async findOne(req : RequestWithCurrentUser, res : Response, id: string){
-        const { organisationId } = req?.currentUser || {} 
+        const { organisationId } = req?.currentUser || {}
+        console.log(id)
         try{
             const task = await this.taskRepository.findOne(
                 {
