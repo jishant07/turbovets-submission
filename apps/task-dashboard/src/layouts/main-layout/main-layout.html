@@ -1,0 +1,36 @@
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-800 text-gray-100 flex flex-col">
+    <div class="px-6 py-4 text-2xl font-bold border-b border-gray-700">
+      TurboVets Task Management
+    </div>
+    <nav class="flex-1 px-4 py-6 space-y-2">
+      <a href="/tasks" *ngIf="!isSuperAdmin" class="block px-3 py-2 rounded hover:bg-gray-700">Task Dashboard</a>
+      <a href="/users" class="block px-3 py-2 rounded hover:bg-gray-700">Users</a>
+      <a href="/organisations" *ngIf="isSuperAdmin" class="block px-3 py-2 rounded hover:bg-gray-700">Organisations</a>
+    </nav>
+    <div class="px-4 py-4 border-t border-gray-700" *ngIf="isAuthenticated()">
+      <button (click)="handlerLogout()" class="w-full text-left px-3 py-2 rounded hover:bg-gray-700">
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <main class="flex-1 bg-gray-100 p-6">
+  <!-- Heading row -->
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="text-2xl font-semibold">Task Management</h1>
+
+    <!-- Username area -->
+    <div class="text-gray-700 font-medium">
+      <!-- Example: dynamically bound user name -->
+      Welcome, {{ userName }}
+    </div>
+  </div>
+
+  <!-- Router outlet -->
+  <div class="text-gray-700">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+</div>

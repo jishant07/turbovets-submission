@@ -1,0 +1,120 @@
+<div class="p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-bold">User List</h2>
+    <!-- Create button at top -->
+    <button *ngIf="canUserCreate && showCreateUser" (click)="toggleCreateUser()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow">
+      Create User
+    </button>
+  </div>
+
+  <form [formGroup]="userCreateForm" *ngIf="!showCreateUser" (submit)="handleSubmit($event)" class="max-w-md mx-auto space-y-4 p-6 bg-white rounded shadow mb-5">
+  <!-- Form row -->
+  <div class="flex items-center space-x-4">
+    <label for="name" class="w-24 text-right font-medium text-gray-700">
+      Name
+    </label>
+    <input
+      id="name"
+      type="text"
+      placeholder="User name"
+        formControlName="name"
+      class="flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+
+  <!-- Form row -->
+  <div class="flex items-center space-x-4">
+    <label for="email" class="w-24 text-right font-medium text-gray-700">
+      Email
+    </label>
+    <input
+      id="email"
+      type="email"
+      placeholder="you@example.com"
+      formControlName="email"
+      class="flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+
+  <!-- Form row -->
+  <div class="flex items-center space-x-4">
+    <label for="password" class="w-24 text-right font-medium text-gray-700">
+      Password
+    </label>
+    <input
+      id="password"
+      type="password"
+      placeholder="Enter password"
+      formControlName="password"
+      class="flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+
+  <!-- Dropdown -->
+  <div class="flex items-center space-x-4">
+    <label for="role" class="w-24 text-right font-medium text-gray-700">
+      Role
+    </label>
+    <select
+      id="role"
+      class="flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      formControlName="userRoleId"
+    >
+      <option value="" disabled selected>Select a role</option>
+      <option *ngFor="let role of filteredRoles" [value]="role.id">{{ role.name }}</option>
+    </select>
+  </div>
+
+  <div class="flex items-center space-x-4">
+    <label for="role" class="w-24 text-right font-medium text-gray-700">
+      Organisation 
+    </label>
+    <select
+      id="organisation"
+      class="flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      formControlName="organisationId"
+    >
+      <option value="" disabled selected>Select an Organisation</option>
+      <option *ngFor="let organisation of organisationList" [value]="organisation.id">{{ organisation.name }}</option>
+    </select>
+  </div>
+
+  <!-- Submit button row -->
+  <div class="flex justify-end">
+    <button
+      type="submit"
+      class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      Submit
+    </button>
+  </div>
+</form>
+
+  
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
+      <thead class="bg-gray-100 border-b border-gray-200">
+        <tr>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">ID</th>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Name</th>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Email</th>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Access Level</th>
+          <th class="px-4 py-2 text-right text-sm font-semibold text-gray-600">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Row 1 -->
+        <tr *ngFor="let user of userList" class="border-b hover:bg-gray-50">
+          <td class="px-4 py-2 text-sm text-gray-700">{{ user.id }}</td>
+          <td class="px-4 py-2 text-sm text-gray-700">{{ user.name }}</td>
+          <td class="px-4 py-2 text-sm text-gray-600">{{ user.email }}</td>
+          <td class="px-4 py-2 text-sm text-gray-500">{{ user.role.name }}</td>
+          <td class="px-4 py-2 text-sm text-right space-x-2">
+            <button *ngIf="canUserEdit && user.role.name !== 'superadmin'" class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded">Update</button>
+            <button *ngIf="canUserDelete && user.role.name !== 'superadmin'" class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

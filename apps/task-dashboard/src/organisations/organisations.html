@@ -1,0 +1,48 @@
+<div class="p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-bold">Task List</h2>
+    <!-- Create button at top -->
+    <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow">
+      Create Task
+    </button>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
+      <thead class="bg-gray-100 border-b border-gray-200">
+        <tr>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">ID</th>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Title</th>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Status</th>
+          <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Due Date</th>
+          <th class="px-4 py-2 text-right text-sm font-semibold text-gray-600">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Row 1 -->
+        <tr class="border-b hover:bg-gray-50">
+          <td class="px-4 py-2 text-sm text-gray-700">1</td>
+          <td class="px-4 py-2 text-sm text-gray-700">Task One</td>
+          <td class="px-4 py-2 text-sm text-yellow-600">In Progress</td>
+          <td class="px-4 py-2 text-sm text-gray-500">2025-08-15</td>
+          <td class="px-4 py-2 text-sm text-right space-x-2">
+            <button class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded">Update</button>
+            <button class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">Delete</button>
+          </td>
+        </tr>
+
+        <!-- Row 2 -->
+        <tr class="border-b hover:bg-gray-50">
+          <td class="px-4 py-2 text-sm text-gray-700">2</td>
+          <td class="px-4 py-2 text-sm text-gray-700">Task Two</td>
+          <td class="px-4 py-2 text-sm text-green-600">Done</td>
+          <td class="px-4 py-2 text-sm text-gray-500">2025-08-10</td>
+          <td class="px-4 py-2 text-sm text-right space-x-2">
+            <button class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded">Update</button>
+            <button class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
