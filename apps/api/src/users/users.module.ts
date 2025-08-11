@@ -11,6 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
 import { User, Organisation, Roles, Task, RolePermissions, Permissions } from '@turbovets/data';
 import { JunctionModule } from '../junction/junction.module';
+import { OrganisationModule } from '../organisation/organisation.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([
@@ -20,7 +21,7 @@ import { JunctionModule } from '../junction/junction.module';
     Task, 
     RolePermissions, 
     Permissions
-  ]), JunctionModule],
+  ]), JunctionModule, OrganisationModule],
   controllers: [UsersController],
   providers: [UsersService, UserRepository],
   exports: [UserRepository, UsersService],

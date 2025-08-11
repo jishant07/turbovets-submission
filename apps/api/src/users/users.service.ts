@@ -1,13 +1,14 @@
 import { HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Request, Response } from 'express'
 
-import { CreateUserDto, LoginDTO, RequestWithCurrentUser } from '@turbovets/data';
+import { CreateUserDto, LoginDTO, Organisation, RequestWithCurrentUser, Roles, TokenUserData } from '@turbovets/data';
 import { UpdateUserDto } from '@turbovets/data';
 import { UserRepository } from './user.repository';
 import * as bcrypt from 'bcrypt'
 import { respond_failure, respond_ok } from '../utils/response.utils';
 import { JwtService } from '@nestjs/jwt';
 import { JunctionService } from '../junction/junction.service';
+import { OrganisationService } from '../organisation/organisation.service';
 
 @Injectable()
 export class UsersService{
@@ -15,18 +16,39 @@ export class UsersService{
   constructor(
     private readonly userRepository: UserRepository,
     private readonly junctionService: JunctionService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    private readonly organisationService: OrganisationService
   ){}
 
   async create(res: Response, createUserDto: CreateUserDto) {
     if(await this.userRepository.findUserByEmail(createUserDto.email, false)){
       throw new InternalServerErrorException('Email Already Exists')
     }else{
+      //Hashed Password
       const password = await bcrypt.hash(createUserDto.password, +(process.env.SALT_ROUNDS))
       createUserDto.password = password
-      const createdUser = await this.userRepository.createUser(createUserDto)
-      delete createdUser.password
-      return respond_ok(res, { user: createdUser })
+
+      if(createUserDto.userRoleId){
+        const role : Roles = await this.junctionService.getRoleFromRoleId(createUserDto.userRoleId)
+        createUserDto.role = role
+      }
+
+      if(createUserDto.organisationId){
+        const organisation: Organisation = await this.organisationService.findOne(createUserDto.organisationId)
+        createUserDto.organisation = organisation
+      }
+
+      try{
+        const createdUser = await this.userRepository.createUser(createUserDto)
+        
+        // For security
+        delete createdUser.password
+
+        return respond_ok(res, {user: createdUser})
+      }catch(err){
+        return respond_failure(res, {message: err})
+      }
+
     }
   }
 
@@ -74,11 +96,12 @@ export class UsersService{
     if(user && user.password){
       const passwordCompareResult = await bcrypt.compare(body.password, user.password)
       if(passwordCompareResult){
-        const jwtPayload = {
+        const jwtPayload : TokenUserData = {
           userId: user.id,
           userEmail: user.email,
           name: user.name,
           role: user.role.name,
+          organisationId: user?.organisation?.id || null,
           permissions: await this.junctionService.getPermissionsFromRoleId(user.role.id)
         }
         const token = await this.jwtService.signAsync(jwtPayload)

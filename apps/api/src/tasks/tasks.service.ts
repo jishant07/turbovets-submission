@@ -1,27 +1,39 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTaskDto, UpdateTaskDto } from '@turbovets/data';
+import { CreateTaskDto, Organisation, RequestWithCurrentUser, UpdateTaskDto } from '@turbovets/data';
 import { TaskRepository } from './task.repository';
 import { UsersService } from '../users/users.service';
+import { Response } from 'express'
+import { OrganisationService } from '../organisation/organisation.service';
+import { respond_ok } from './../utils/response.utils';
 
 @Injectable()
 export class TasksService {
 
   constructor(
     private readonly userService: UsersService,
-    private readonly taskRepository: TaskRepository
+    private readonly taskRepository: TaskRepository,
+    private readonly organisationService: OrganisationService
   ){}
 
-  async create(createTaskDto: CreateTaskDto) {
-    if(createTaskDto.userId){
-      const user = await this.userService.findOneById(createTaskDto.userId)
-      delete createTaskDto.userId
+  async create(req : RequestWithCurrentUser, res: Response, createTaskDto: CreateTaskDto) {
+
+    const { userId, organisationId } = req?.currentUser || {}
+
+    if(userId){
+      const user = await this.userService.findOneById(userId)
       createTaskDto.user = user
     }
-    return this.taskRepository.createTask(createTaskDto)
+
+    if(organisationId){
+      const organisation: Organisation = await this.organisationService.findOne(organisationId)
+      createTaskDto.organisation = organisation
+    }
+
+    return respond_ok(res, {task: await this.taskRepository.createTask(createTaskDto)})
   }
 
-  findAll() {
-    return this.taskRepository.findAll()
+  findAll(req : RequestWithCurrentUser, res: Response) {
+    return this.taskRepository.findAll(req, res)
   }
 
   findOne(id: string) {
@@ -32,10 +44,12 @@ export class TasksService {
     return this.taskRepository.findAllTaskOfAUser(userId)
   }
 
-  async update(id: string, updateTaskDto: UpdateTaskDto) {
-    if(updateTaskDto.userId){
-      const user = await this.userService.findOneById(updateTaskDto.userId)
-      delete updateTaskDto.userId
+  async update(req : RequestWithCurrentUser, res: Response, id: string, updateTaskDto: UpdateTaskDto) {
+
+    const { userId } = req?.currentUser || {}
+
+    if(userId){
+      const user = await this.userService.findOneById(userId)
       updateTaskDto.user = user
     }
     const { affected } = await this.taskRepository.update(id, updateTaskDto);

@@ -21,11 +21,13 @@ export class RolePermissionsRepository {
     async getPermissionsFromRoleId(roleId: string){
       const rolePermissions = await this.rolePermissionRepository.find({where: {roleId}})
       return rolePermissions.map((item: RolePermissions) =>{
-        return {
-          action: item.permission.action,
-          resource: item.permission.resource
-        }
+        return `${item.permission.resource}:${item.permission.action}`
       })
+    }
+
+    async getRoleFromRoleId(roleId: string){
+      const junctionEntry = await this.rolePermissionRepository.findOne({where: {roleId}})
+      return junctionEntry.role
     }
 
 }

@@ -1,7 +1,9 @@
-import { Injectable } from "@nestjs/common";
+import { HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CreateTaskDto, Task, UpdateTaskDto } from "@turbovets/data";
+import { CreateTaskDto, RequestWithCurrentUser, Task, UpdateTaskDto } from "@turbovets/data";
 import { Repository } from "typeorm";
+import { Response } from 'express'
+import { respond_failure, respond_ok } from "../utils/response.utils";
 
 @Injectable()
 export class TaskRepository{
@@ -16,8 +18,14 @@ export class TaskRepository{
         return this.taskRepository.save(task)
     }
 
-    async findAll(){
-        return this.taskRepository.find()
+    async findAll(req : RequestWithCurrentUser, res: Response){
+        const taskList = await this.taskRepository.find({where: {organisation: {id: req?.currentUser?.organisationId}}})
+
+        if(taskList.length){
+            return respond_ok(res, {tasks : taskList})
+        }else{
+            return respond_failure(res, {message: "No Tasks Found"}, HttpStatus.NOT_FOUND)
+        }
     }
 
     async findOne(id: string){

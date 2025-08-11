@@ -9,5 +9,6 @@ import { Organisation } from '@turbovets/data';
   imports: [TypeOrmModule.forFeature([Organisation])],
   controllers: [OrganisationController],
   providers: [OrganisationService, OrganisationRepository],
+  exports: [OrganisationService]
 })
 export class OrganisationModule {}

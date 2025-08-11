@@ -6,14 +6,9 @@ export interface TokenUserData {
     userEmail: string
     name: string
     role: string
-    permissions: TokenPermissions[]
+    organisationId: string | null
+    permissions: string[]
 
-}
-
-export interface TokenPermissions{
-
-    action: string
-    resource: string
 }
 
 // Extend Express Request to include currentUser

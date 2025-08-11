@@ -22,9 +22,7 @@ export class PermissionsService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    if ((await this.permissionRepository.findAllPermissions()).length > 0 && (await this.roleService.findAllRoles()).length > 0) {
-      console.log('Role and Permission Data Already Seeded');
-    } else {
+    if (!((await this.permissionRepository.findAllPermissions()).length > 0 && (await this.roleService.findAllRoles()).length > 0)) {
       try {
         await this.createRoleAndAttachPermissions()
         console.log('Role and Permission Data Seeding Successful');

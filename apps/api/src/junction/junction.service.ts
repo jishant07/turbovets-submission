@@ -14,7 +14,10 @@ export class JunctionService {
   }
 
   async getPermissionsFromRoleId(roleId: string){
-    const permissions = await this.rolesPermissionRepository.getPermissionsFromRoleId(roleId)
-    return permissions
+    return this.rolesPermissionRepository.getPermissionsFromRoleId(roleId)
+  }
+
+  async getRoleFromRoleId(roleId: string){
+    return this.rolesPermissionRepository.getRoleFromRoleId(roleId)
   }
 }
